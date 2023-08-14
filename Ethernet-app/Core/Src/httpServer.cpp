@@ -1,0 +1,170 @@
+/*
+ * httpServer.cpp
+ *
+ *  Created on: 23 May 2023
+ *      Author: Afshin
+ */
+
+#include "httpServer.h"
+#include "main.h"
+#include <sstream>
+httpServer::httpServer(unsigned char sNum, tcpsocket *rinstance, uint16_t p,
+		uservice *us) :
+		userver(us), refInstance(rinstance), socknum(sNum), port(p) {
+
+}
+void httpServer::start() {
+	refInstance->configSocket(socknum, Sn_MR_TCP, port);
+	refInstance->listenS(socknum);
+}
+
+httpServer::~httpServer() {
+}
+
+http_t processHttp(std::string &input) {
+	http_t http;
+	if (input.find(std::string("GET")) != std::string::npos) {
+		std::string path;
+		std::string to;
+		std::size_t found;
+		if (input != "") {
+			{
+				std::stringstream ss(input);
+				while (std::getline(ss, to, '\n')) {
+					found = to.find("GET ");
+					if (found != std::string::npos)
+						break;
+				}
+			}
+			{
+				std::stringstream ss(to);
+				while (std::getline(ss, path, ' ')) {
+					found = path.find("GET");
+					if (found == std::string::npos)
+						break;
+				}
+			}
+		}
+		http.t = "GET";
+		http.p = path;
+	} else if (input.find(std::string("POST")) != std::string::npos) {
+		std::string path;
+		std::string c;
+		std::string to;
+		std::size_t found;
+		if (input != "") {
+			{
+				std::stringstream ss(input);
+				while (std::getline(ss, to, '\n')) {
+					found = to.find("POST ");
+					if (found != std::string::npos)
+						break;
+				}
+			}
+			{
+				std::stringstream ss(to);
+				while (std::getline(ss, path, ' ')) {
+					found = path.find("POST");
+					if (found == std::string::npos)
+						break;
+				}
+			}
+			{
+				size_t pos = input.find("\r\n\r\n");
+				if ((pos + 4) < (input.length() - 1))
+					c = input.substr(input.find("\r\n\r\n") + 4,
+							input.length() - 1);
+			}
+
+		}
+		http.t = "POST";
+		http.p = path;
+		http.c = c;
+	}
+	return http;
+}
+std::string getPath(std::string &input) {
+	std::string path;
+	std::string to;
+	std::size_t found;
+	if (input != "") {
+		{
+			std::stringstream ss(input);
+			while (std::getline(ss, to, '\n')) {
+				found = to.find("GET ");
+				if (found != std::string::npos)
+					break;
+			}
+		}
+		{
+			std::stringstream ss(to);
+			while (std::getline(ss, path, ' ')) {
+				found = path.find("GET");
+				if (found == std::string::npos)
+					break;
+			}
+		}
+	}
+	return path;
+}
+bool httpServer::sendHTTP(std::string &input, int &code, bool &mode) {
+	std::string result;
+	if (code == 200)
+		result = "HTTP/1.1 " + std::to_string(code)
+				+ " OK\nContent-Type: text/html;\nConnection: close;\n\n";
+	else if (code == 404)
+		result =
+				"HTTP/1.1 " + std::to_string(code)
+						+ " Not Found\nContent-Type: text/html;\nConnection: close;\n\n";
+	result += input;
+	refInstance->writeS(socknum, result);
+	refInstance->disconnectS(socknum);
+	refInstance->closeS(socknum);
+	refInstance->configSocket(socknum, Sn_MR_TCP, port);
+	int i = 0;
+	if (!refInstance->listenS(socknum)) {
+		while (!refInstance->listenS(socknum) & (i < 100)) {
+			refInstance->disconnectS(socknum);
+			refInstance->closeS(socknum);
+			refInstance->configSocket(socknum, Sn_MR_TCP, port);
+			i++;
+		}
+	}
+	return true;
+}
+void httpServer::setCallback(
+		httpRes (*callb)(std::string&, uservice *userver)) {
+	refCallback = callb;
+
+}
+int timeo = 0;
+bool httpServer::updateNow() {
+	uint8_t status = refInstance->listenWait(socknum);
+
+	if (status != 0) {
+		if (!refInstance->Ready(socknum)) {
+			if(status != 2){
+				timeo++;
+			if (timeo > 10000) {
+				//logua("Socket is disconnected.\r\n\0");
+				timeo = 0;
+				refInstance->disconnectS(socknum);
+				refInstance->closeS(socknum);
+				refInstance->configSocket(socknum, Sn_MR_TCP, port);
+				refInstance->listenS(socknum);
+				return false;
+			}
+			}
+			return true;
+		}
+		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_SET); //LED HIGH
+		std::string data;
+		refInstance->readString(socknum, data);
+		httpRes res = refCallback(data, userver);
+		if (res.res != "") {
+			sendHTTP(res.res, res.code, res.mode);
+		}
+		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET); //LED HIGH
+	}
+	return false;
+}

@@ -1,0 +1,27 @@
+!SESSION 2023-08-14 18:11:21.034 -----------------------------------------------
+eclipse.buildId=Version 1.13.1
+java.version=17.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-08-14 18:11:57.897
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-08-14 18:11:57.911
+!MESSAGE Log4j2 initialized with config file C:\Users\Afshin\Documents\Ethernet-app\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-08-14 18:12:02.537
+!MESSAGE Started RMI Server, listening on port 41338
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-08-14 18:14:59.237
+!MESSAGE Indexed 'Bootloader' (20 sources, 107 headers) in 4.93 sec: 7,659 declarations; 31,211 references; 2 unresolved inclusions; 36 syntax errors; 188 unresolved names (0.48%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-08-14 18:15:34.055
+!MESSAGE Indexed 'Ethernet-app' (42 sources, 347 headers) in 14.6 sec: 33,790 declarations; 99,227 references; 2 unresolved inclusions; 74 syntax errors; 497 unresolved names (0.37%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-08-14 18:15:52.118
+!MESSAGE Indexed 'Bootloader' (20 sources, 107 headers) in 2.37 sec: 7,659 declarations; 31,211 references; 2 unresolved inclusions; 36 syntax errors; 188 unresolved names (0.48%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-08-14 18:16:47.962
+!MESSAGE Indexed 'Ethernet-app' (42 sources, 350 headers) in 14.5 sec: 34,761 declarations; 100,941 references; 2 unresolved inclusions; 85 syntax errors; 497 unresolved names (0.36%)

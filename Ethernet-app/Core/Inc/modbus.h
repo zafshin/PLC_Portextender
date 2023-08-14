@@ -1,0 +1,42 @@
+/*
+ * modbus.h
+ *
+ *  Created on: 25 May 2023
+ *      Author: Afshin
+ */
+#include "string"
+#include "tcpsocket.h"
+#include <vector>
+#include <stdint.h>
+#ifndef SRC_MODBUS_H_
+#define SRC_MODBUS_H_
+
+class modbus {
+public:
+
+
+	modbus(unsigned char sNum,tcpsocket *rinstance);
+	bool host(int port);
+	bool connect(std::string ip, int port);
+	bool disconnectM();
+	bool updateNow();
+	std::vector<unsigned char> getRes();
+	std::vector<unsigned char> getReq();
+	bool sentReq(std::vector<unsigned char> &data);
+	bool sentRes(std::vector<unsigned char> &data);
+	virtual ~modbus();
+	bool enable = false;
+private:
+	bool client = false;
+	bool connected = false;
+	uint16_t ppp;
+	std::string ipp;
+	uint16_t id = 0;
+	uint16_t pid =0;
+	uint8_t daddr = 1;
+	tcpsocket *refInstance;
+	unsigned char socknum;
+	std::vector<unsigned char> buff;
+};
+
+#endif /* SRC_MODBUS_H_ */

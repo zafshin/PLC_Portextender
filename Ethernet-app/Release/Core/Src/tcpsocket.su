@@ -1,0 +1,22 @@
+../Core/Src/tcpsocket.cpp:19:1:tcpsocket::~tcpsocket()	8	static
+../Core/Src/tcpsocket.cpp:19:1:virtual tcpsocket::~tcpsocket()	8	static
+../Core/Src/tcpsocket.cpp:15:1:tcpsocket::tcpsocket()	0	static
+../Core/Src/tcpsocket.cpp:23:6:void tcpsocket::config(wiz_NetInfo&)	0	static
+../Core/Src/tcpsocket.cpp:26:6:void tcpsocket::printInformation()	0	static
+../Core/Src/tcpsocket.cpp:29:6:bool tcpsocket::Ready(unsigned char)	16	static
+../Core/Src/tcpsocket.cpp:37:6:bool tcpsocket::setKeepAlive(unsigned char, uint8_t)	24	static
+../Core/Src/tcpsocket.cpp:44:6:bool tcpsocket::connected(unsigned char)	8	static
+../Core/Src/tcpsocket.cpp:50:6:bool tcpsocket::connectTo(unsigned char, const unsigned char*, int)	8	static
+../Core/Src/tcpsocket.cpp:78:6:bool tcpsocket::connectS(unsigned char, uint8_t, uint8_t, uint16_t)	16	static
+../Core/Src/tcpsocket.cpp:99:6:bool tcpsocket::configSocket(unsigned char, uint8_t, uint16_t)	8	static
+../Core/Src/tcpsocket.cpp:108:9:uint8_t tcpsocket::listenWait(unsigned char)	8	static
+../Core/Src/tcpsocket.cpp:120:6:bool tcpsocket::closeS(unsigned char)	8	static
+../Core/Src/tcpsocket.cpp:124:6:bool tcpsocket::disconnectS(unsigned char)	8	static
+../Core/Src/tcpsocket.cpp:139:6:bool tcpsocket::listenS(unsigned char)	8	static
+../Core/Src/tcpsocket.cpp:160:6:bool tcpsocket::readString(const unsigned char&, std::string&)	1048	static
+../Core/Src/tcpsocket.cpp:260:6:bool tcpsocket::writeS(const unsigned char&, std::vector<unsigned char>&)	40	static
+../Core/Src/tcpsocket.cpp:292:6:bool tcpsocket::writeS(const unsigned char&, std::string&)	40	static
+../Core/Src/tcpsocket.cpp:321:6:bool tcpsocket::w5500device_init(uint8_t (*)(), void (*)(uint8_t), void (*)(), void (*)())	48	static
+C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/c++/11.3.1/bits/vector.tcc:426:7:) [with _Args = {const unsigned char&}; _Tp = unsigned char; _Alloc = std::allocator<unsigned char>]	40	static
+C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/c++/11.3.1/bits/stl_vector.h:1187:7:void std::vector<_Tp, _Alloc>::push_back(const value_type&) [with _Tp = unsigned char; _Alloc = std::allocator<unsigned char>]	8	static
+../Core/Src/tcpsocket.cpp:210:6:bool tcpsocket::readS(const unsigned char&, std::vector<unsigned char>&)	1048	static
