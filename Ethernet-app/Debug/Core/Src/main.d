@@ -32,7 +32,8 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Core/Inc/app.h ../Core/Inc/tcpsocket.h ../Core/Inc/w5500.h \
  ../Core/Inc/wizchip_conf.h ../Core/Inc/socket.h ../Core/Inc/modbus.h \
  ../Core/Inc/httpServer.h ../Core/Inc/uservice.h ../Core/Inc/ethtypes.h \
- ../Core/Inc/mosbus2serial.h ../Core/Inc/usart.h
+ ../Core/Inc/eflashset.h ../Core/Inc/eflash.h ../Core/Inc/mosbus2serial.h \
+ ../Core/Inc/usart.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -78,5 +79,7 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
 ../Core/Inc/httpServer.h:
 ../Core/Inc/uservice.h:
 ../Core/Inc/ethtypes.h:
+../Core/Inc/eflashset.h:
+../Core/Inc/eflash.h:
 ../Core/Inc/mosbus2serial.h:
 ../Core/Inc/usart.h:

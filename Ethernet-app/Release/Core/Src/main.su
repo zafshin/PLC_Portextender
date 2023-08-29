@@ -1,8 +1,8 @@
 ../Core/Src/main.cpp:62:6:void logua(const char*)	16	static
-../Core/Src/main.cpp:131:6:void HAL_UART_TxCpltCallback(UART_HandleTypeDef*)	0	static
-../Core/Src/main.cpp:138:6:void HAL_UART_RxCallback()	0	static
-../Core/Src/main.cpp:145:6:void SystemClock_Config()	72	static,ignoring_inline_asm
+../Core/Src/main.cpp:141:6:void HAL_UART_TxCpltCallback(UART_HandleTypeDef*)	0	static
+../Core/Src/main.cpp:148:6:void HAL_UART_RxCallback()	0	static
+../Core/Src/main.cpp:155:6:void SystemClock_Config()	72	static,ignoring_inline_asm
 ../Core/Src/main.cpp:75:5:int main()	8	static
-../Core/Src/main.cpp:185:6:void Error_Handler()	0	static,ignoring_inline_asm
-../Core/Src/main.cpp:192:1:cpp)	0	static
-../Core/Src/main.cpp:192:1:cpp)	0	static
+../Core/Src/main.cpp:195:6:void Error_Handler()	0	static,ignoring_inline_asm
+../Core/Src/main.cpp:202:1:cpp)	0	static
+../Core/Src/main.cpp:202:1:cpp)	0	static

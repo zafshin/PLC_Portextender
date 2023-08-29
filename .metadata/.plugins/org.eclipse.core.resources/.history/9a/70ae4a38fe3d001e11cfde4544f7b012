@@ -1,0 +1,399 @@
+/* USER CODE BEGIN Header */
+/**
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include "iwdg.h"
+#include "spi.h"
+#include "gpio.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "stm32f1xx_hal.h"
+#include "stm32f1xx_hal_flash.h"
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+#define READ_INS 0x03U
+#define READID_INS 0x90U
+#define WRITEEN_INS 0x06U
+#define WRITEDS_INS 0x04U
+#define WRITEPAGE_INS 0x02U
+
+#define UPDATE_FLAG_ADDR 0xFF000U
+#define UPDATE_ADDR 0x100000U
+#define FLASH_ADDR 0x8003B00U
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+void set_cs_flash(void) {
+	HAL_GPIO_WritePin(GPIOA, CS_flash_Pin, GPIO_PIN_RESET); //CS LOW
+}
+
+void deset_cs_flash(void) {
+	HAL_GPIO_WritePin(GPIOA, CS_flash_Pin, GPIO_PIN_SET); //CS HIGH
+}
+
+void spi_r(uint8_t *data, uint16_t size) {
+	HAL_SPI_Receive(&hspi1, data, size, HAL_MAX_DELAY);
+}
+
+void spi_w(uint8_t *b, uint16_t size) {
+	HAL_SPI_Transmit(&hspi1, b, size, HAL_MAX_DELAY);
+}
+void writeEnable_eflash() {
+	uint8_t frm = WRITEEN_INS;
+	set_cs_flash();
+	spi_w(&frm, 1);
+	deset_cs_flash();
+}
+uint8_t check_eflash_status() {
+	set_cs_flash();
+	uint8_t frm = 0x05;
+	spi_w(&frm, 1);
+	uint8_t status = 0;
+	spi_r(&status, 1);
+	deset_cs_flash();
+	return (status & 0x01);
+}
+void waitforeflash() {
+	int trys = 0;
+	uint8_t stats = check_eflash_status();
+	while (stats != 0) {
+		HAL_Delay(1);
+		stats = check_eflash_status();
+
+		if (trys > 100) {
+			writeEnable_eflash();
+			trys = 0;
+		}
+		trys++;
+	}
+}
+void read_eflash(uint8_t *data, uint32_t *address, uint8_t ins, uint16_t size) {
+	uint8_t *addr16 = ((uint8_t*) address) + 2;
+	uint8_t *addr8 = ((uint8_t*) address) + 1;
+	uint8_t *addr0 = ((uint8_t*) address);
+	uint8_t frm[4] = { ins, *addr16, *addr8, *addr0 };
+	set_cs_flash();
+	spi_w((uint8_t*) &frm, 4);
+	spi_r(data, size);
+	deset_cs_flash();
+}
+void Erase_eflash() {
+	waitforeflash();
+	writeEnable_eflash();
+	uint8_t frm = 0xc7;
+	set_cs_flash();
+	spi_w(&frm, 1);
+	deset_cs_flash();
+}
+void writeDisable_eflash() {
+	uint8_t frm[1] = { WRITEDS_INS };
+	waitforeflash();
+	set_cs_flash();
+	spi_w((uint8_t*) &frm, 1);
+	deset_cs_flash();
+}
+
+void write_eflash(uint8_t *data, uint32_t *address) {
+	uint8_t *addr16 = ((uint8_t*) address) + 2;
+	uint8_t *addr8 = ((uint8_t*) address) + 1;
+	uint8_t *addr0 = ((uint8_t*) address);
+	uint8_t buff[260];
+	buff[0] = WRITEPAGE_INS;
+	buff[1] = *addr16;
+	buff[2] = *addr8;
+	buff[3] = *addr0;
+	for (int i = 0; i < 256; i++)
+		buff[i + 4] = *(data + i);
+	waitforeflash();
+	writeEnable_eflash();
+	set_cs_flash();
+	spi_w((uint8_t*) &buff, 260);
+	deset_cs_flash();
+}
+void Erase_eflash_sectors(uint32_t *from_address, uint32_t *to_address) {
+	uint32_t address = *from_address;
+	while (1) {
+		uint8_t *addr16 = ((uint8_t*) &address) + 2;
+		uint8_t *addr8 = ((uint8_t*) &address) + 1;
+		uint8_t *addr0 = ((uint8_t*) &address);
+		uint8_t frm[4] = { 0x20, *addr16, *addr8, *addr0 };
+		writeEnable_eflash();
+		set_cs_flash();
+		spi_w((uint8_t*) &frm, 4);
+		deset_cs_flash();
+		waitforeflash();
+		if ((*to_address <= (address + 4096)))
+			break;
+		address += 4096;
+	}
+}
+uint8_t check_eflash() {
+	uint8_t data[2] = { 0, 0 };
+	uint32_t addr = 0x0;
+	read_eflash((uint8_t*) &data, &addr, (uint8_t) READID_INS, 2);
+	if (data[0] == 0xef)
+		return 1;
+	else
+		return 0;
+}
+//erase address
+uint32_t erase(uint32_t *addr, uint8_t np) {
+	FLASH_EraseInitTypeDef eraseInit;
+	eraseInit.TypeErase = FLASH_TYPEERASE_PAGES;
+	eraseInit.PageAddress = *addr;
+	eraseInit.NbPages = np;
+	uint32_t sectorError = 0;
+	HAL_FLASHEx_Erase(&eraseInit, &sectorError);
+	return sectorError;
+}
+//flashing
+void flashPage(uint32_t *addr, uint8_t *data) {
+	// Write the data into the Flash memory
+	for (int i = 0; i < 256; i += 2) {
+		uint16_t halfword = (*(data + i + 1) << 8) | *(data + i);
+		HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, *addr + i, halfword);
+	}
+}
+
+
+uint8_t checkUpdateFlags() {
+	uint8_t data = 0;
+	uint32_t addr = UPDATE_FLAG_ADDR;
+	uint8_t flag = READ_INS;
+	read_eflash((uint8_t*) &data, &addr, flag, 1);
+	return data;
+}
+uint8_t EraseUpdateFlags() {
+	uint32_t addr = UPDATE_FLAG_ADDR;
+	uint32_t toaddr = UPDATE_FLAG_ADDR + 50;
+	Erase_eflash_sectors(&addr, &toaddr);
+	return 0;
+}
+// The update process
+uint8_t Update() {
+	// Unlocking process of the microcontroller's flash
+	__HAL_FLASH_CLEAR_FLAG(
+			FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPERR); // Clear any pending flags
+	HAL_FLASH_Unlock(); // Unlock the flash
+	uint32_t saddr = 0x8003B00;
+	// Erase the flash
+	erase(&saddr, 118);
+	uint32_t addrt = UPDATE_ADDR;
+	uint32_t addrf = FLASH_ADDR;
+	uint32_t offset = 0;
+	uint8_t data[256];
+	while (1) {
+		for (int i = 0; i < 256; i++) {
+			// Reading 256 bytes from external flash
+			read_eflash(((uint8_t*) &data) + i, &addrt, (uint8_t) READ_INS, 1);
+			addrt++;
+		}
+		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET); //LED HIGH
+		// Write the 256 bytes into the embedded flash
+		flashPage(&addrf, data);
+		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_SET); //LED HIGH
+		offset += 256;
+		addrf += 256;
+		if (offset >= 242000)
+			break;
+	}
+	// Lock the flash
+	HAL_FLASH_Lock();
+	// Undo the update flag
+	EraseUpdateFlags();
+	return 0;
+}
+// Jump to ROM
+typedef void (*pFunction)(void);
+void JumpToAddress(uint32_t addr) {
+	uint32_t JumpAddress = *(uint32_t*) (addr + 4);
+	pFunction Jump = (pFunction) JumpAddress;
+	HAL_SPI_DeInit(&hspi1);
+	HAL_RCC_DeInit();
+	HAL_DeInit();
+	SysTick->CTRL = 0;
+	SysTick->LOAD = 0;
+	SysTick->VAL = 0;
+
+	SCB->VTOR = addr;
+	__set_MSP(*(uint32_t*) addr);
+	Jump();
+}
+// Boot Process
+void Boot() {
+	// Check for Update
+	if (checkUpdateFlags() != 0xFF) {
+		Update();
+		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET);
+	}
+	// Jump to ROM
+	JumpToAddress(FLASH_ADDR);
+}
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+	HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_SET); //LED HIGH
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_SPI1_Init();
+  MX_IWDG_Init();
+  /* USER CODE BEGIN 2 */
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+	// Delay for external flash boot time
+	HAL_Delay(50);
+	// Start boot-loader process
+	Boot();
+	while (1) {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+	}
+  /* USER CODE END 3 */
+}
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
+	}
+  /* USER CODE END Error_Handler_Debug */
+}
+
+#ifdef  USE_FULL_ASSERT
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */

@@ -1,0 +1,42 @@
+/*
+ * app.h
+ *
+ *  Created on: May 23, 2023
+ *      Author: Afshin
+ */
+#include "tcpsocket.h"
+#include "modbus.h"
+#include "httpServer.h"
+#include "mosbus2serial.h"
+#include "main.h"
+#include "eflashset.h"
+#include <sstream>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include <string.h>
+#ifndef SRC_APP_H_
+#define SRC_APP_H_
+
+class app {
+public:
+	app(SPI_HandleTypeDef &hspi1,SPI_HandleTypeDef &hspi2, UART_HandleTypeDef &huart5);
+	void loop();
+	virtual ~app();
+	void loopModbus();
+	void readMB();
+	void writeMB();
+	void serial_int();
+	eflash_t *flash;
+	SPI_HandleTypeDef *spieflash;
+	SPI_HandleTypeDef *spia;
+	UART_HandleTypeDef *uarta;
+	tcpsocket network;
+	httpServer* server1 = nullptr;
+	modbus* mb1 = nullptr;
+	mosbus2serial *m2s = nullptr;
+
+};
+
+#endif /* SRC_APP_H_ */

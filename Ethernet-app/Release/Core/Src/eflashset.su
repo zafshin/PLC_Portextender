@@ -1,0 +1,4 @@
+../Core/Src/eflashset.c:10:20:getipsettings	48	static
+../Core/Src/eflashset.c:17:6:setsettings	288	static
+../Core/Src/eflashset.c:38:26:getmod2serisettings	64	static
+../Core/Src/eflashset.c:46:24:getmodbussettings	56	static

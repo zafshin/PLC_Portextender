@@ -1,0 +1,52 @@
+/*
+ * eflashset.c
+ *
+ *  Created on: Aug 23, 2023
+ *      Author: Afshin
+ */
+
+#include "eflashset.h"
+
+struct ipsetting_t getipsettings(struct eflash_t *flash){
+	uint32_t address = SETTINGS_ADDR;
+	struct ipsetting_t setting;
+	read_eflash(flash,(unsigned char*) &setting, &address, READ_INS, (unsigned short) sizeof(setting));
+	return setting;
+}
+
+void setsettings(struct eflash_t *flash, struct ipsetting_t *ip, struct mod2serisetting_t *m2s, struct modbussetting_t *mod){
+	uint32_t address = SETTINGS_ADDR;
+	uint32_t addressend = SETTINGS_ADDR + sizeof(struct ipsetting_t) + sizeof(struct mod2serisetting_t) + sizeof(struct modbussetting_t);
+	const uint16_t ipsize = sizeof(struct ipsetting_t);
+	const uint16_t m2ssize = sizeof(struct mod2serisetting_t);
+	const uint16_t modsize = sizeof(struct modbussetting_t);
+
+	Erase_eflash_sectors(flash, &address, &addressend);
+	uint8_t data[256]= {0};
+	for(unsigned int i = 0;i < ipsize; i++){
+		data[i] = (uint8_t)(*(((uint8_t*)ip)+i));
+	}
+	for(unsigned int i = 0;i < m2ssize; i++){
+		data[i + ipsize] = (uint8_t)(*(((uint8_t*)m2s)+i));
+	}
+	for(unsigned int i = 0;i < modsize; i++){
+		data[i + ipsize + m2ssize] = (uint8_t)(*(((uint8_t*)mod)+i));
+	}
+	write_eflash(flash,(uint8_t*) &data, &address);
+}
+
+struct mod2serisetting_t getmod2serisettings(struct eflash_t *flash){
+	uint32_t address = SETTINGS_ADDR + sizeof(struct ipsetting_t);
+	struct mod2serisetting_t setting;
+	read_eflash(flash, (unsigned char*) &setting, &address, READ_INS, (unsigned short) sizeof(setting));
+	return setting;
+}
+
+
+struct modbussetting_t getmodbussettings(struct eflash_t *flash){
+	uint32_t address = SETTINGS_ADDR + sizeof(struct ipsetting_t) + sizeof(struct mod2serisetting_t);
+	struct modbussetting_t setting;
+	read_eflash(flash, (unsigned char*) &setting, &address, READ_INS, (unsigned short) sizeof(setting));
+	return setting;
+}
+

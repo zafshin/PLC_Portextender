@@ -1,12 +1,13 @@
-../Core/Src/eflash.cpp:9:6:void set_cs_flash()	1
-../Core/Src/eflash.cpp:13:6:void deset_cs_flash()	1
-../Core/Src/eflash.cpp:16:6:void spi_r(uint8_t*, uint16_t)	1
-../Core/Src/eflash.cpp:20:6:void spi_w(uint8_t*, uint16_t)	1
-../Core/Src/eflash.cpp:23:9:uint8_t check_eflash_status()	1
-../Core/Src/eflash.cpp:31:6:void waitforeflash()	2
-../Core/Src/eflash.cpp:35:6:void read_eflash(uint8_t*, uint32_t*, uint8_t, uint16_t)	1
-../Core/Src/eflash.cpp:47:6:void writeEnable_eflash()	1
-../Core/Src/eflash.cpp:53:6:void Erase_eflash()	1
-../Core/Src/eflash.cpp:61:6:void writeDisable_eflash()	1
-../Core/Src/eflash.cpp:69:6:void write_eflash(uint8_t*, uint32_t*)	1
-../Core/Src/eflash.cpp:86:9:uint8_t check_eflash()	1
+../Core/Src/eflash.c:8:6:set_cs_flash	1
+../Core/Src/eflash.c:12:6:deset_cs_flash	1
+../Core/Src/eflash.c:15:6:spi_r	1
+../Core/Src/eflash.c:19:6:spi_w	1
+../Core/Src/eflash.c:22:9:check_eflash_status	1
+../Core/Src/eflash.c:48:6:waitforeflash	2
+../Core/Src/eflash.c:60:6:read_eflash	1
+../Core/Src/eflash.c:70:6:writeEnable_eflash	1
+../Core/Src/eflash.c:31:6:Erase_eflash_sectors	2
+../Core/Src/eflash.c:76:6:Erase_eflash	1
+../Core/Src/eflash.c:85:6:writeDisable_eflash	1
+../Core/Src/eflash.c:93:6:write_eflash	1
+../Core/Src/eflash.c:110:9:check_eflash	1

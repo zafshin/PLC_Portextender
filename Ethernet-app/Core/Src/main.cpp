@@ -94,6 +94,15 @@ int main(void) {
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
+	// Configure and enable the watchdog timer
+
+//	MX_IWDG_Init();
+//	hiwdg.Instance = IWDG;
+//	    hiwdg.Init.Prescaler = IWDG_PRESCALER_256;
+//	    hiwdg.Init.Reload = 0xFF;  // Timeout value, adjust as needed
+//	    if (HAL_IWDG_Init(&hiwdg) != HAL_OK) {
+//	        Error_Handler();
+//	    }
 	MX_GPIO_Init();
 	MX_CRC_Init();
 	MX_SPI1_Init();
@@ -116,6 +125,7 @@ int main(void) {
 						GPIO_PIN_RESET);
 	while (1) {
 		/* USER CODE END WHILE */
+		//HAL_IWDG_Refresh(&hiwdg);
 		app1->loop();
 		/* USER CODE BEGIN 3 */
 	}

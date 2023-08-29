@@ -3,6 +3,7 @@
 struct httpRes{
 	int code = 200;
 	bool mode = false;
+	bool reboot = false;
 	std::string res="";
 };
 struct http_t{

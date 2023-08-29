@@ -63,6 +63,8 @@ void Error_Handler(void);
 #define R_LED_GPIO_Port GPIOC
 #define CS_flash_Pin GPIO_PIN_4
 #define CS_flash_GPIO_Port GPIOA
+#define reset_factory_Pin GPIO_PIN_4
+#define reset_factory_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
 

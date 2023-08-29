@@ -1,0 +1,41 @@
+/*
+ * eflashset.c
+ *
+ *  Created on: Aug 23, 2023
+ *      Author: Afshin
+ */
+
+#include "eflashset.h"
+
+struct ipsetting_t getipsettings(struct eflash_t *flash){
+	unsigned int address = SETTINGS_ADDR;
+	struct ipsetting_t setting;
+	read_eflash(flash, &setting, &address, READ_INS, sizeof(setting));
+	return setting;
+}
+
+void setipsettings(struct eflash_t *flash, struct ipsetting_t input){
+
+}
+
+struct mod2serisetting_t getmod2serisettings(struct eflash_t *flash){
+	unsigned int address = SETTINGS_ADDR + sizeof(struct ipsetting_t);
+	struct mod2serisetting_t setting;
+	read_eflash(flash, &setting, &address, READ_INS, sizeof(setting));
+	return setting;
+}
+
+void getmod2serisettings(struct eflash_t *flash, struct mod2serisetting_t input){
+
+}
+
+struct modbussetting_t modbussettings(struct eflash_t *flash){
+	unsigned int address = SETTINGS_ADDR + sizeof(struct ipsetting_t) + sizeof(struct mod2serisetting_t);
+	struct modbussetting_t setting;
+	read_eflash(flash, &setting, &address, READ_INS, sizeof(setting));
+	return setting;
+}
+
+void modbussettings(struct eflash_t *flash, struct modbussetting_t input){
+
+}

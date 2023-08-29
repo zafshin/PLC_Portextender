@@ -1,0 +1,33 @@
+/*
+ * eflashset.c
+ *
+ *  Created on: Aug 23, 2023
+ *      Author: Afshin
+ */
+
+#include "eflashset.h"
+
+struct ipsetting_t getipsettings(struct eflash_t *flash){
+
+	read_eflash(flash, data, address, ins, size);
+}
+
+void setipsettings(struct eflash_t *flash, struct ipsetting_t input){
+
+}
+
+struct mod2serisetting_t getmod2serisettings(struct eflash_t *flash){
+
+}
+
+void getmod2serisettings(struct eflash_t *flash, struct mod2serisetting_t input){
+
+}
+
+struct modbussetting_t modbussettings(struct eflash_t *flash){
+
+}
+
+void modbussettings(struct eflash_t *flash, struct modbussetting_t input){
+
+}

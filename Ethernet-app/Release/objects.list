@@ -2,6 +2,7 @@
 "./Core/Src/app.o"
 "./Core/Src/crc.o"
 "./Core/Src/eflash.o"
+"./Core/Src/eflashset.o"
 "./Core/Src/gpio.o"
 "./Core/Src/httpServer.o"
 "./Core/Src/i2c.o"

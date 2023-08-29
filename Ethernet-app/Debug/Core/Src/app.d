@@ -30,7 +30,8 @@ Core/Src/app.o: ../Core/Src/app.cpp ../Core/Inc/app.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/mosbus2serial.h ../Core/Inc/usart.h ../Core/Inc/uservice.h
+ ../Core/Inc/eflashset.h ../Core/Inc/eflash.h ../Core/Inc/mosbus2serial.h \
+ ../Core/Inc/usart.h ../Core/Inc/uservice.h
 ../Core/Inc/app.h:
 ../Core/Inc/tcpsocket.h:
 ../Core/Inc/w5500.h:
@@ -69,6 +70,8 @@ Core/Src/app.o: ../Core/Src/app.cpp ../Core/Inc/app.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
+../Core/Inc/eflashset.h:
+../Core/Inc/eflash.h:
 ../Core/Inc/mosbus2serial.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/uservice.h:

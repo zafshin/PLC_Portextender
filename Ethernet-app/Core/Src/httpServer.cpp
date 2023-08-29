@@ -9,8 +9,8 @@
 #include "main.h"
 #include <sstream>
 httpServer::httpServer(unsigned char sNum, tcpsocket *rinstance, uint16_t p,
-		uservice *us) :
-		userver(us), refInstance(rinstance), socknum(sNum), port(p) {
+		uservice *us, eflash_t *eflashi) :
+		userver(us), refInstance(rinstance), socknum(sNum), port(p), eflash(eflashi) {
 
 }
 void httpServer::start() {
@@ -79,7 +79,7 @@ http_t processHttp(std::string &input) {
 		}
 		http.t = "POST";
 		http.p = path;
-		http.c = c;
+		http.c = c.substr(1, c.size() -2);
 	}
 	return http;
 }
@@ -133,7 +133,7 @@ bool httpServer::sendHTTP(std::string &input, int &code, bool &mode) {
 	return true;
 }
 void httpServer::setCallback(
-		httpRes (*callb)(std::string&, uservice *userver)) {
+		httpRes (*callb)(std::string&, uservice *userver, eflash_t *eflash)) {
 	refCallback = callb;
 
 }
@@ -160,11 +160,14 @@ bool httpServer::updateNow() {
 		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_SET); //LED HIGH
 		std::string data;
 		refInstance->readString(socknum, data);
-		httpRes res = refCallback(data, userver);
+		httpRes res = refCallback(data, userver, eflash);
 		if (res.res != "") {
 			sendHTTP(res.res, res.code, res.mode);
 		}
-		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET); //LED HIGH
+		HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET); //LED LOW
+		if(res.reboot){
+			NVIC_SystemReset();
+		}
 	}
 	return false;
 }

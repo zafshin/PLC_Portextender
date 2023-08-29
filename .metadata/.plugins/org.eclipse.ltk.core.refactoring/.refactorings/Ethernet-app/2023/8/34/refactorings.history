@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Ethernet-app/Core/Src/eflash.cpp&apos; to &apos;eflash.c&apos;" description="Rename resource &apos;eflash.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/eflash.cpp" name="eflash.c" stamp="1692719342632" updateReferences="true"/>
+</session>

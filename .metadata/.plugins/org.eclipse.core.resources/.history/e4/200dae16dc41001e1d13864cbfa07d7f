@@ -1,0 +1,41 @@
+/*
+ * eflashset.h
+ *
+ *  Created on: Aug 23, 2023
+ *      Author: Afshin
+ */
+
+#ifndef INC_EFLASHSET_H_
+#define INC_EFLASHSET_H_
+#include "eflash.h"
+
+struct ipsetting_t{
+	unsigned char mac[6];
+	unsigned char ip[4];
+	unsigned char sn[4];
+	unsigned char gw[4];
+	bool mode;
+
+};
+
+struct mod2serisetting_t{
+	unsigned short port;
+	unsigned int bud;
+	bool enable;
+	bool host;
+
+};
+
+struct modbussetting_t{
+	unsigned short port;
+	bool enable;
+	bool host;
+
+};
+
+ipsetting_t getipsettings();
+void setipsettings(ipsetting_t input);
+
+
+
+#endif /* INC_EFLASHSET_H_ */

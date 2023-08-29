@@ -105,13 +105,17 @@ void uservice::ex(std::string &input, httpRes &res) {
 			uint32_t to = sAddr + 256000;
 			Erase_eflash_sectors(&from, &to);
 		} else if (pkg.cmd == "reboot") {
-			NVIC_SystemReset();
+			res.mode = false;
+			res.code = 200;
+			res.res = "OK";
+			res.reboot = true;
 		} else if (pkg.cmd == "uflag") {
 			writeEnable_eflash();
 			uint8_t uflag[256];
-			uflag[0] = 0;
+
 			for (int i = 1; i < 256; i++)
 				uflag[i] = 0xFF;
+			uflag[0] = 0x45;
 			uint32_t addrf = 0xFF000;
 			write_eflash((uint8_t*) &uflag, &addrf);
 		}

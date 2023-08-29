@@ -76,8 +76,8 @@ all: main-build
 main-build: Ethernet-app.elf secondary-outputs
 
 # Tool invocations
-Ethernet-app.elf Ethernet-app.map: $(OBJS) $(USER_OBJS) C:\Users\Afshin\Documents\Ethernet-app\Ethernet-app\STM32F103RCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\Ethernet-app\STM32F103RCTX_FLASH.ld" -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Ethernet-app.elf Ethernet-app.map: $(OBJS) $(USER_OBJS) C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

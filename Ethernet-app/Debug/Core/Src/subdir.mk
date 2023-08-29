@@ -7,6 +7,8 @@
 C_SRCS += \
 ../Core/Src/adc.c \
 ../Core/Src/crc.c \
+../Core/Src/eflash.c \
+../Core/Src/eflashset.c \
 ../Core/Src/gpio.c \
 ../Core/Src/i2c.c \
 ../Core/Src/socket.c \
@@ -22,7 +24,6 @@ C_SRCS += \
 
 CPP_SRCS += \
 ../Core/Src/app.cpp \
-../Core/Src/eflash.cpp \
 ../Core/Src/httpServer.cpp \
 ../Core/Src/main.cpp \
 ../Core/Src/modbus.cpp \
@@ -33,6 +34,8 @@ CPP_SRCS += \
 C_DEPS += \
 ./Core/Src/adc.d \
 ./Core/Src/crc.d \
+./Core/Src/eflash.d \
+./Core/Src/eflashset.d \
 ./Core/Src/gpio.d \
 ./Core/Src/i2c.d \
 ./Core/Src/socket.d \
@@ -51,6 +54,7 @@ OBJS += \
 ./Core/Src/app.o \
 ./Core/Src/crc.o \
 ./Core/Src/eflash.o \
+./Core/Src/eflashset.o \
 ./Core/Src/gpio.o \
 ./Core/Src/httpServer.o \
 ./Core/Src/i2c.o \
@@ -72,7 +76,6 @@ OBJS += \
 
 CPP_DEPS += \
 ./Core/Src/app.d \
-./Core/Src/eflash.d \
 ./Core/Src/httpServer.d \
 ./Core/Src/main.d \
 ./Core/Src/modbus.d \
@@ -90,7 +93,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.cpp Core/Src/subdir.m
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/adc.cyclo ./Core/Src/adc.d ./Core/Src/adc.o ./Core/Src/adc.su ./Core/Src/app.cyclo ./Core/Src/app.d ./Core/Src/app.o ./Core/Src/app.su ./Core/Src/crc.cyclo ./Core/Src/crc.d ./Core/Src/crc.o ./Core/Src/crc.su ./Core/Src/eflash.cyclo ./Core/Src/eflash.d ./Core/Src/eflash.o ./Core/Src/eflash.su ./Core/Src/gpio.cyclo ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/httpServer.cyclo ./Core/Src/httpServer.d ./Core/Src/httpServer.o ./Core/Src/httpServer.su ./Core/Src/i2c.cyclo ./Core/Src/i2c.d ./Core/Src/i2c.o ./Core/Src/i2c.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/modbus.cyclo ./Core/Src/modbus.d ./Core/Src/modbus.o ./Core/Src/modbus.su ./Core/Src/mosbus2serial.cyclo ./Core/Src/mosbus2serial.d ./Core/Src/mosbus2serial.o ./Core/Src/mosbus2serial.su ./Core/Src/socket.cyclo ./Core/Src/socket.d ./Core/Src/socket.o ./Core/Src/socket.su ./Core/Src/spi.cyclo ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/spi.su ./Core/Src/stm32f1xx_hal_msp.cyclo ./Core/Src/stm32f1xx_hal_msp.d ./Core/Src/stm32f1xx_hal_msp.o ./Core/Src/stm32f1xx_hal_msp.su ./Core/Src/stm32f1xx_it.cyclo ./Core/Src/stm32f1xx_it.d ./Core/Src/stm32f1xx_it.o ./Core/Src/stm32f1xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f1xx.cyclo ./Core/Src/system_stm32f1xx.d ./Core/Src/system_stm32f1xx.o ./Core/Src/system_stm32f1xx.su ./Core/Src/tcpsocket.cyclo ./Core/Src/tcpsocket.d ./Core/Src/tcpsocket.o ./Core/Src/tcpsocket.su ./Core/Src/usart.cyclo ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usart.su ./Core/Src/uservice.cyclo ./Core/Src/uservice.d ./Core/Src/uservice.o ./Core/Src/uservice.su ./Core/Src/w5500.cyclo ./Core/Src/w5500.d ./Core/Src/w5500.o ./Core/Src/w5500.su ./Core/Src/wizchip_conf.cyclo ./Core/Src/wizchip_conf.d ./Core/Src/wizchip_conf.o ./Core/Src/wizchip_conf.su
+	-$(RM) ./Core/Src/adc.cyclo ./Core/Src/adc.d ./Core/Src/adc.o ./Core/Src/adc.su ./Core/Src/app.cyclo ./Core/Src/app.d ./Core/Src/app.o ./Core/Src/app.su ./Core/Src/crc.cyclo ./Core/Src/crc.d ./Core/Src/crc.o ./Core/Src/crc.su ./Core/Src/eflash.cyclo ./Core/Src/eflash.d ./Core/Src/eflash.o ./Core/Src/eflash.su ./Core/Src/eflashset.cyclo ./Core/Src/eflashset.d ./Core/Src/eflashset.o ./Core/Src/eflashset.su ./Core/Src/gpio.cyclo ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/httpServer.cyclo ./Core/Src/httpServer.d ./Core/Src/httpServer.o ./Core/Src/httpServer.su ./Core/Src/i2c.cyclo ./Core/Src/i2c.d ./Core/Src/i2c.o ./Core/Src/i2c.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/modbus.cyclo ./Core/Src/modbus.d ./Core/Src/modbus.o ./Core/Src/modbus.su ./Core/Src/mosbus2serial.cyclo ./Core/Src/mosbus2serial.d ./Core/Src/mosbus2serial.o ./Core/Src/mosbus2serial.su ./Core/Src/socket.cyclo ./Core/Src/socket.d ./Core/Src/socket.o ./Core/Src/socket.su ./Core/Src/spi.cyclo ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/spi.su ./Core/Src/stm32f1xx_hal_msp.cyclo ./Core/Src/stm32f1xx_hal_msp.d ./Core/Src/stm32f1xx_hal_msp.o ./Core/Src/stm32f1xx_hal_msp.su ./Core/Src/stm32f1xx_it.cyclo ./Core/Src/stm32f1xx_it.d ./Core/Src/stm32f1xx_it.o ./Core/Src/stm32f1xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f1xx.cyclo ./Core/Src/system_stm32f1xx.d ./Core/Src/system_stm32f1xx.o ./Core/Src/system_stm32f1xx.su ./Core/Src/tcpsocket.cyclo ./Core/Src/tcpsocket.d ./Core/Src/tcpsocket.o ./Core/Src/tcpsocket.su ./Core/Src/usart.cyclo ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usart.su ./Core/Src/uservice.cyclo ./Core/Src/uservice.d ./Core/Src/uservice.o ./Core/Src/uservice.su ./Core/Src/w5500.cyclo ./Core/Src/w5500.d ./Core/Src/w5500.o ./Core/Src/w5500.su ./Core/Src/wizchip_conf.cyclo ./Core/Src/wizchip_conf.d ./Core/Src/wizchip_conf.o ./Core/Src/wizchip_conf.su
 
 .PHONY: clean-Core-2f-Src
 

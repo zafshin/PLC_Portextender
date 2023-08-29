@@ -1,0 +1,13 @@
+/*
+ * eflashset.h
+ *
+ *  Created on: Aug 23, 2023
+ *      Author: Afshin
+ */
+
+#ifndef INC_EFLASHSET_H_
+#define INC_EFLASHSET_H_
+#include "eflash.h"
+
+
+#endif /* INC_EFLASHSET_H_ */

@@ -1,7 +1,6 @@
 C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/c++/11.3.1/new:174:33:void* operator new(std::size_t, void*)	16	static
 C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\arm-none-eabi\include\c++\11.3.1\arm-none-eabi\thumb\v7-m\nofp\bits\gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/c++/11.3.1/bits/basic_string.h:6629:3:long unsigned int std::__cxx11::stoul(const string&, std::size_t*, int)	32	static
-../Drivers/CMSIS/Include/core_cm3.h:1762:34:void __NVIC_SystemReset()	4	static,ignoring_inline_asm
 C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/c++/11.3.1/bits/ios_base.h:129:3:constexpr std::_Ios_Openmode std::operator|(std::_Ios_Openmode, std::_Ios_Openmode)	16	static
 ../Core/Src/uservice.cpp:13:1:uservice::uservice(SPI_HandleTypeDef*)	16	static
 ../Core/Src/uservice.cpp:18:1:uservice::~uservice()	16	static
@@ -14,22 +13,22 @@ C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.external
 ../Core/Inc/uservice.h:38:9:uservice::decodePkg_t::~decodePkg_t()	16	static
 ../Core/Src/uservice.cpp:36:23:uservice::decodePkg_t uservice::decode(std::string&)	496	static
 ../Core/Src/uservice.cpp:91:6:void uservice::ex(std::string&, httpRes&)	344	static
-../Core/Src/uservice.cpp:147:6:void uservice::flash(std::vector<unsigned char>&, uint32_t)	24	static
-../Core/Src/uservice.cpp:155:6:void crc32_init_table()	24	static
-../Core/Src/uservice.cpp:168:6:bool uservice::checkcrc(uint32_t, uint32_t)	48	static
-../Core/Src/uservice.cpp:183:6:void uservice::set_cs_flash()	16	static
-../Core/Src/uservice.cpp:187:6:void uservice::deset_cs_flash()	16	static
-../Core/Src/uservice.cpp:190:6:void uservice::spi_r(uint8_t*, uint16_t)	24	static
-../Core/Src/uservice.cpp:194:6:void uservice::spi_w(uint8_t*, uint16_t)	24	static
-../Core/Src/uservice.cpp:197:9:uint8_t uservice::check_eflash_status()	24	static
-../Core/Src/uservice.cpp:206:6:void uservice::Erase_eflash_sectors(uint32_t*, uint32_t*)	48	static
-../Core/Src/uservice.cpp:224:6:void uservice::waitforeflash()	24	static
-../Core/Src/uservice.cpp:236:6:void uservice::read_eflash(uint8_t*, uint32_t*, uint8_t, uint16_t)	40	static
-../Core/Src/uservice.cpp:247:6:void uservice::writeEnable_eflash()	24	static
-../Core/Src/uservice.cpp:253:6:void uservice::Erase_eflash()	24	static
-../Core/Src/uservice.cpp:262:6:void uservice::writeDisable_eflash()	24	static
-../Core/Src/uservice.cpp:270:6:void uservice::write_eflash(uint8_t*, uint32_t*)	304	static
-../Core/Src/uservice.cpp:287:9:uint8_t uservice::check_eflash()	32	static
+../Core/Src/uservice.cpp:151:6:void uservice::flash(std::vector<unsigned char>&, uint32_t)	24	static
+../Core/Src/uservice.cpp:159:6:void crc32_init_table()	24	static
+../Core/Src/uservice.cpp:172:6:bool uservice::checkcrc(uint32_t, uint32_t)	48	static
+../Core/Src/uservice.cpp:187:6:void uservice::set_cs_flash()	16	static
+../Core/Src/uservice.cpp:191:6:void uservice::deset_cs_flash()	16	static
+../Core/Src/uservice.cpp:194:6:void uservice::spi_r(uint8_t*, uint16_t)	24	static
+../Core/Src/uservice.cpp:198:6:void uservice::spi_w(uint8_t*, uint16_t)	24	static
+../Core/Src/uservice.cpp:201:9:uint8_t uservice::check_eflash_status()	24	static
+../Core/Src/uservice.cpp:210:6:void uservice::Erase_eflash_sectors(uint32_t*, uint32_t*)	48	static
+../Core/Src/uservice.cpp:228:6:void uservice::waitforeflash()	24	static
+../Core/Src/uservice.cpp:240:6:void uservice::read_eflash(uint8_t*, uint32_t*, uint8_t, uint16_t)	40	static
+../Core/Src/uservice.cpp:251:6:void uservice::writeEnable_eflash()	24	static
+../Core/Src/uservice.cpp:257:6:void uservice::Erase_eflash()	24	static
+../Core/Src/uservice.cpp:266:6:void uservice::writeDisable_eflash()	24	static
+../Core/Src/uservice.cpp:274:6:void uservice::write_eflash(uint8_t*, uint32_t*)	304	static
+../Core/Src/uservice.cpp:291:9:uint8_t uservice::check_eflash()	32	static
 C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\arm-none-eabi\include\c++\11.3.1\ext\string_conversions.h:63:2:)::_Save_errno::_Save_errno() [with _TRet = long unsigned int; _Ret = long unsigned int; _CharT = char; _Base = {int}]	16	static
 C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\arm-none-eabi\include\c++\11.3.1\ext\string_conversions.h:64:2:)::_Save_errno::~_Save_errno() [with _TRet = long unsigned int; _Ret = long unsigned int; _CharT = char; _Base = {int}]	16	static
 C:\ST\STM32CubeIDE_1.12.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.0.202305231506\tools\arm-none-eabi\include\c++\11.3.1\ext\string_conversions.h:70:4:)::_Range_chk::_S_chk(_TRet, std::false_type) [with _TRet = long unsigned int; _Ret = long unsigned int; _CharT = char; _Base = {int}]	16	static
