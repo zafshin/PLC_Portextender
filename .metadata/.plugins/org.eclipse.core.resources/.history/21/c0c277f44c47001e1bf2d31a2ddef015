@@ -1,0 +1,128 @@
+/*
+ * mosbus2serial.cpp
+ *
+ *  Created on: Aug 9, 2023
+ *      Author: Afshin
+ */
+
+#include "mosbus2serial.h"
+
+mosbus2serial::mosbus2serial(tcpsocket *rinstance, UART_HandleTypeDef *serial,
+		uint8_t socknum) :
+		snum(socknum), tcpin(rinstance), sinst(serial) {
+	// TODO Auto-generated constructor stub
+
+}
+
+mosbus2serial::~mosbus2serial() {
+	// TODO Auto-generated destructor stub
+}
+
+void mosbus2serial::irq() {
+	HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_SET); //LED HIGH
+	sbuf.push_back(bbs);
+	if (status) {
+		start_time = HAL_GetTick();
+	}
+	HAL_UART_Receive_IT(sinst, &bbs, 1);
+}
+void mosbus2serial::start() {
+	status = true;
+	HAL_UART_Receive_IT(sinst, &bbs, 1);
+}
+void mosbus2serial::stop() {
+	status = false;
+}
+void mosbus2serial::config(uint16_t port) {
+	port_i = port;
+	host = true;
+	tcpin->configSocket(snum, Sn_MR_TCP, port_i);
+	tcpin->listenS(snum);
+
+}
+bool mosbus2serial::connect(std::string ip, uint16_t port){
+	unsigned char ips[4];
+		host = false;
+		if (ip != "") {
+			ip_i = ip;
+			port_i = port;
+			tcpin->disconnectS(snum);
+			tcpin->closeS(snum);
+			tcpin->configSocket(snum, Sn_MR_TCP, port_i);
+
+			std::string to;
+			std::stringstream ss(ip_i);
+			int i = 0;
+			while (std::getline(ss, to, '.')) {
+				ips[i] = std::stoul(to, nullptr, 0);
+				i++;
+				if (i > 3)
+					break;
+			}
+		}
+
+		bool r = tcpin->connectTo(snum, ips, port_i);
+		tcpin->setKeepAlive(snum, (unsigned char) 0x1);
+		return r;
+}
+bool mosbus2serial::refresh() {
+	unsigned char n = 0;
+	while (__HAL_UART_GET_FLAG(sinst, UART_FLAG_RXNE) != RESET) {
+		HAL_UART_Receive(sinst, &n, 1, HAL_MAX_DELAY);
+		sbuf.push_back(n);
+	}
+	uint32_t end_time = HAL_GetTick();
+	uint32_t measured_time = end_time - start_time;
+	if (measured_time > 10) {
+		if (sbuf.size() > 0) {
+			if(tcpin->listenWait(snum) == 2)
+				tcpin->writeS(snum, sbuf);
+			sbuf.clear();
+			HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET); //LED LOW
+		}
+	}
+	if (status) {
+		uint8_t status = tcpin->listenWait(snum);
+		if (status != 0) {
+			if (!tcpin->Ready(snum)) {
+				if (status != 2) {
+					timeo++;
+					if (timeo > 1000) {
+						timeo = 0;
+						rsocket();
+						return false;
+					}
+				}
+				return true;
+			} else {
+				chsocket();
+			}
+		}
+	}
+	return false;
+}
+void mosbus2serial::rsocket() {
+	if(host){
+	tcpin->disconnectS(snum);
+	tcpin->closeS(snum);
+	tcpin->configSocket(snum, Sn_MR_TCP, port_i);
+	tcpin->listenS(snum);
+	}else{
+		connect(ip_i,port_i);
+	}
+}
+bool mosbus2serial::chsocket() {
+	HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_SET); //LED HIGH
+	std::vector<unsigned char> buf;
+	if (tcpin->readS(snum, buf)) {
+		HAL_GPIO_WritePin(Modbus_controller_GPIO_Port, Modbus_controller_Pin,
+				GPIO_PIN_SET);
+		HAL_UART_Transmit(sinst, buf.data(), buf.size(),
+		HAL_MAX_DELAY); // transmit in blocking mode
+		HAL_GPIO_WritePin(Modbus_controller_GPIO_Port, Modbus_controller_Pin,
+				GPIO_PIN_RESET);
+
+	}
+	HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET); //LED HIGH
+	return true;
+}

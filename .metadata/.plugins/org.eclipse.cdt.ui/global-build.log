@@ -7184,3 +7184,691 @@ Finished building: Ethernet-app.bin
  
 Finished building: Ethernet-app.list
  
+04:33:29 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+04:33:31 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 205224	    808	   9112	 215144	  34868	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+16:48:58 **** Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+16:48:59 **** Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp: In member function 'bool mosbus2serial::connect(std::string, uint16_t)':
+../Core/Src/mosbus2serial.cpp:54:49: error: variable 'std::stringstream ss' has initializer but incomplete type
+   54 |                         std::stringstream ss(ipp);
+      |                                                 ^
+../Core/Src/mosbus2serial.cpp:54:46: error: 'ipp' was not declared in this scope; did you mean 'ips'?
+   54 |                         std::stringstream ss(ipp);
+      |                                              ^~~
+      |                                              ips
+make: *** [Core/Src/subdir.mk:91: Core/Src/mosbus2serial.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+16:49:15 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+16:49:16 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp: In member function 'bool mosbus2serial::connect(std::string, uint16_t)':
+../Core/Src/mosbus2serial.cpp:54:48: error: variable 'std::stringstream ss' has initializer but incomplete type
+   54 |                         std::stringstream ss(ip);
+      |                                                ^
+make: *** [Core/Src/subdir.mk:91: Core/Src/mosbus2serial.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+16:49:40 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+16:49:41 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp: In member function 'bool mosbus2serial::connect(std::string, uint16_t)':
+../Core/Src/mosbus2serial.cpp:54:50: error: variable 'std::stringstream ss' has initializer but incomplete type
+   54 |                         std::stringstream ss(ip_i);
+      |                                                  ^
+make: *** [Core/Src/subdir.mk:91: Core/Src/mosbus2serial.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+16:50:35 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+16:50:36 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 205904	    808	   9112	 215824	  34b10	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+16:50:48 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+16:50:49 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-size   Ethernet-app.elf 
+   text	   data	    bss	    dec	    hex	filename
+ 205904	    808	   9112	 215824	  34b10	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+16:51:30 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+16:51:31 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 205904	    808	   9112	 215824	  34b10	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+17:13:46 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:13:47 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp:43:6: error: no declaration matches 'bool mosbus2serial::connect(unsigned char*, uint16_t)'
+   43 | bool mosbus2serial::connect(unsigned char ips[4], uint16_t port){
+      |      ^~~~~~~~~~~~~
+In file included from ../Core/Src/mosbus2serial.cpp:8:
+../Core/Inc/mosbus2serial.h:23:14: note: candidate is: 'bool mosbus2serial::connect(std::string, uint16_t)'
+   23 |         bool connect(std::string ip, uint16_t port);
+      |              ^~~~~~~
+../Core/Inc/mosbus2serial.h:15:7: note: 'class mosbus2serial' defined here
+   15 | class mosbus2serial {
+      |       ^~~~~~~~~~~~~
+../Core/Src/mosbus2serial.cpp: In member function 'void mosbus2serial::rsocket()':
+../Core/Src/mosbus2serial.cpp:97:25: error: cannot convert 'unsigned char [4]' to 'std::string' {aka 'std::__cxx11::basic_string<char>'}
+   97 |                 connect(ip_i,port_i);
+      |                         ^~~~
+      |                         |
+      |                         unsigned char [4]
+In file included from ../Core/Src/mosbus2serial.cpp:8:
+../Core/Inc/mosbus2serial.h:23:34: note:   initializing argument 1 of 'bool mosbus2serial::connect(std::string, uint16_t)'
+   23 |         bool connect(std::string ip, uint16_t port);
+      |                      ~~~~~~~~~~~~^~
+make: *** [Core/Src/subdir.mk:91: Core/Src/mosbus2serial.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/app.cpp: In function 'ip_t str2ip(std::string)':
+../Core/Src/app.cpp:19:30: error: 'ip_i' was not declared in this scope; did you mean 'ip_t'?
+   19 |         std::stringstream ss(ip_i);
+      |                              ^~~~
+      |                              ip_t
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:14:10 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:14:11 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp: In member function 'bool mosbus2serial::connect(unsigned char*, uint16_t)':
+../Core/Src/mosbus2serial.cpp:45:30: error: incompatible types in assignment of 'unsigned char*' to 'unsigned char [4]'
+   45 |                         ip_i = ips;
+      |                         ~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/mosbus2serial.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/app.cpp: In function 'ip_t str2ip(std::string)':
+../Core/Src/app.cpp:19:30: error: 'ip_i' was not declared in this scope; did you mean 'ip_t'?
+   19 |         std::stringstream ss(ip_i);
+      |                              ^~~~
+      |                              ip_t
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:635:43: error: cannot convert 'std::string' {aka 'std::__cxx11::basic_string<char>'} to 'unsigned char*'
+  635 |                         m2s->connect(std::string(s3.ip), s3.port);
+      |                                           ^~~~~~~~~~~~~
+      |                                           |
+      |                                           std::string {aka std::__cxx11::basic_string<char>}
+In file included from ../Core/Inc/app.h:10,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/mosbus2serial.h:23:36: note:   initializing argument 1 of 'bool mosbus2serial::connect(unsigned char*, uint16_t)'
+   23 |         bool connect(unsigned char ips[4], uint16_t port);
+      |                      ~~~~~~~~~~~~~~^~~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:15:31 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:15:32 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp: In member function 'bool mosbus2serial::connect(unsigned char*, uint16_t)':
+../Core/Src/mosbus2serial.cpp:45:42: warning: 'sizeof' on array function parameter 'ips' will return size of 'unsigned char*' [-Wsizeof-array-argument]
+   45 |                 memcpy(&ip_i,&ips,sizeof(ips));
+      |                                         ~^~~~
+../Core/Src/mosbus2serial.cpp:43:43: note: declared here
+   43 | bool mosbus2serial::connect(unsigned char ips[4], uint16_t port){
+      |                             ~~~~~~~~~~~~~~^~~~~~
+../Core/Src/mosbus2serial.cpp:45:17: error: 'memcpy' was not declared in this scope
+   45 |                 memcpy(&ip_i,&ips,sizeof(ips));
+      |                 ^~~~~~
+../Core/Src/mosbus2serial.cpp:9:1: note: 'memcpy' is defined in header '<cstring>'; did you forget to '#include <cstring>'?
+    8 | #include "mosbus2serial.h"
+  +++ |+#include <cstring>
+    9 | 
+../Core/Src/mosbus2serial.cpp:46:30: error: incompatible types in assignment of 'unsigned char*' to 'unsigned char [4]'
+   46 |                         ip_i = ips;
+      |                         ~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/mosbus2serial.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/app.cpp: In function 'ip_t str2ip(std::string)':
+../Core/Src/app.cpp:19:30: error: 'ip_i' was not declared in this scope; did you mean 'ip_t'?
+   19 |         std::stringstream ss(ip_i);
+      |                              ^~~~
+      |                              ip_t
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:635:43: error: cannot convert 'std::string' {aka 'std::__cxx11::basic_string<char>'} to 'unsigned char*'
+  635 |                         m2s->connect(std::string(s3.ip), s3.port);
+      |                                           ^~~~~~~~~~~~~
+      |                                           |
+      |                                           std::string {aka std::__cxx11::basic_string<char>}
+In file included from ../Core/Inc/app.h:10,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/mosbus2serial.h:23:36: note:   initializing argument 1 of 'bool mosbus2serial::connect(unsigned char*, uint16_t)'
+   23 |         bool connect(unsigned char ips[4], uint16_t port);
+      |                      ~~~~~~~~~~~~~~^~~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:16:59 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:17:00 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp: In member function 'bool mosbus2serial::connect(unsigned char*, uint16_t)':
+../Core/Src/mosbus2serial.cpp:45:42: warning: 'sizeof' on array function parameter 'ips' will return size of 'unsigned char*' [-Wsizeof-array-argument]
+   45 |                 memcpy(&ip_i,&ips,sizeof(ips));
+      |                                         ~^~~~
+../Core/Src/mosbus2serial.cpp:43:43: note: declared here
+   43 | bool mosbus2serial::connect(unsigned char ips[4], uint16_t port){
+      |                             ~~~~~~~~~~~~~~^~~~~~
+../Core/Src/mosbus2serial.cpp:46:30: error: incompatible types in assignment of 'unsigned char*' to 'unsigned char [4]'
+   46 |                         ip_i = ips;
+      |                         ~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/mosbus2serial.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/app.cpp: In function 'ip_t str2ip(std::string)':
+../Core/Src/app.cpp:19:30: error: 'ip_i' was not declared in this scope; did you mean 'ip_t'?
+   19 |         std::stringstream ss(ip_i);
+      |                              ^~~~
+      |                              ip_t
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:635:43: error: cannot convert 'std::string' {aka 'std::__cxx11::basic_string<char>'} to 'unsigned char*'
+  635 |                         m2s->connect(std::string(s3.ip), s3.port);
+      |                                           ^~~~~~~~~~~~~
+      |                                           |
+      |                                           std::string {aka std::__cxx11::basic_string<char>}
+In file included from ../Core/Inc/app.h:10,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/mosbus2serial.h:23:36: note:   initializing argument 1 of 'bool mosbus2serial::connect(unsigned char*, uint16_t)'
+   23 |         bool connect(unsigned char ips[4], uint16_t port);
+      |                      ~~~~~~~~~~~~~~^~~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:17:21 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:17:22 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/mosbus2serial.cpp: In member function 'bool mosbus2serial::connect(unsigned char*, uint16_t)':
+../Core/Src/mosbus2serial.cpp:45:41: warning: 'sizeof' on array function parameter 'ips' will return size of 'unsigned char*' [-Wsizeof-array-argument]
+   45 |                 memcpy(ip_i,&ips,sizeof(ips));
+      |                                        ~^~~~
+../Core/Src/mosbus2serial.cpp:43:43: note: declared here
+   43 | bool mosbus2serial::connect(unsigned char ips[4], uint16_t port){
+      |                             ~~~~~~~~~~~~~~^~~~~~
+../Core/Src/app.cpp: In function 'ip_t str2ip(std::string)':
+../Core/Src/app.cpp:19:30: error: 'ip_i' was not declared in this scope; did you mean 'ip_t'?
+   19 |         std::stringstream ss(ip_i);
+      |                              ^~~~
+      |                              ip_t
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:635:43: error: cannot convert 'std::string' {aka 'std::__cxx11::basic_string<char>'} to 'unsigned char*'
+  635 |                         m2s->connect(std::string(s3.ip), s3.port);
+      |                                           ^~~~~~~~~~~~~
+      |                                           |
+      |                                           std::string {aka std::__cxx11::basic_string<char>}
+In file included from ../Core/Inc/app.h:10,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/mosbus2serial.h:23:36: note:   initializing argument 1 of 'bool mosbus2serial::connect(unsigned char*, uint16_t)'
+   23 |         bool connect(unsigned char ips[4], uint16_t port);
+      |                      ~~~~~~~~~~~~~~^~~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:17:56 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:17:57 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/app.cpp: In function 'ip_t str2ip(std::string)':
+../Core/Src/app.cpp:19:30: error: 'ip_i' was not declared in this scope; did you mean 'ip_t'?
+   19 |         std::stringstream ss(ip_i);
+      |                              ^~~~
+      |                              ip_t
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:635:43: error: cannot convert 'std::string' {aka 'std::__cxx11::basic_string<char>'} to 'unsigned char*'
+  635 |                         m2s->connect(std::string(s3.ip), s3.port);
+      |                                           ^~~~~~~~~~~~~
+      |                                           |
+      |                                           std::string {aka std::__cxx11::basic_string<char>}
+In file included from ../Core/Inc/app.h:10,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/mosbus2serial.h:23:36: note:   initializing argument 1 of 'bool mosbus2serial::connect(unsigned char*, uint16_t)'
+   23 |         bool connect(unsigned char ips[4], uint16_t port);
+      |                      ~~~~~~~~~~~~~~^~~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:18:39 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:18:40 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/app.cpp: In function 'ip_t str2ip(std::string)':
+../Core/Src/app.cpp:19:30: error: 'ip_i' was not declared in this scope; did you mean 'ip_t'?
+   19 |         std::stringstream ss(ip_i);
+      |                              ^~~~
+      |                              ip_t
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:635:44: error: cannot convert 'ip_t' to 'unsigned char*'
+  635 |                         m2s->connect(str2ip(s3.ip), s3.port);
+      |                                      ~~~~~~^~~~~~~
+      |                                            |
+      |                                            ip_t
+In file included from ../Core/Inc/app.h:10,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/mosbus2serial.h:23:36: note:   initializing argument 1 of 'bool mosbus2serial::connect(unsigned char*, uint16_t)'
+   23 |         bool connect(unsigned char ips[4], uint16_t port);
+      |                      ~~~~~~~~~~~~~~^~~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:20:44 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:20:45 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/httpServer.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/httpServer.d" -MT"Core/Src/httpServer.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/httpServer.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+arm-none-eabi-g++ "../Core/Src/uservice.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/uservice.d" -MT"Core/Src/uservice.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/uservice.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 205472	    808	   9112	 215392	  34960	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+17:20:54 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:20:55 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 205472	    808	   9112	 215392	  34960	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+17:24:30 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:24:31 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/modbus.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/modbus.d" -MT"Core/Src/modbus.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/modbus.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:619:38: error: invalid conversion from 'const char*' to 'unsigned char*' [-fpermissive]
+  619 |                         mb1->connect((const char*) &s2.ip, s2.port);
+      |                                      ^~~~~~~~~~~~~~~~~~~~
+      |                                      |
+      |                                      const char*
+In file included from ../Core/Inc/app.h:8,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/modbus.h:20:36: note:   initializing argument 1 of 'bool modbus::connect(unsigned char*, int)'
+   20 |         bool connect(unsigned char ip[4], int port);
+      |                      ~~~~~~~~~~~~~~^~~~~
+../Core/Src/app.cpp: In member function 'void app::readMB()':
+../Core/Src/app.cpp:670:38: error: invalid conversion from 'const char*' to 'unsigned char*' [-fpermissive]
+  670 |                         mb1->connect("192.168.1.5", 502);
+      |                                      ^~~~~~~~~~~~~
+      |                                      |
+      |                                      const char*
+In file included from ../Core/Inc/app.h:8,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/modbus.h:20:36: note:   initializing argument 1 of 'bool modbus::connect(unsigned char*, int)'
+   20 |         bool connect(unsigned char ip[4], int port);
+      |                      ~~~~~~~~~~~~~~^~~~~
+../Core/Src/app.cpp: In member function 'void app::writeMB()':
+../Core/Src/app.cpp:685:38: error: invalid conversion from 'const char*' to 'unsigned char*' [-fpermissive]
+  685 |                         mb1->connect("192.168.1.5", 502);
+      |                                      ^~~~~~~~~~~~~
+      |                                      |
+      |                                      const char*
+In file included from ../Core/Inc/app.h:8,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/modbus.h:20:36: note:   initializing argument 1 of 'bool modbus::connect(unsigned char*, int)'
+   20 |         bool connect(unsigned char ip[4], int port);
+      |                      ~~~~~~~~~~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:26:06 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:26:07 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+../Core/Src/app.cpp: In constructor 'app::app(SPI_HandleTypeDef&, SPI_HandleTypeDef&, UART_HandleTypeDef&)':
+../Core/Src/app.cpp:619:38: error: invalid conversion from 'const char*' to 'unsigned char*' [-fpermissive]
+  619 |                         mb1->connect((const char*) &s2.ip, s2.port);
+      |                                      ^~~~~~~~~~~~~~~~~~~~
+      |                                      |
+      |                                      const char*
+In file included from ../Core/Inc/app.h:8,
+                 from ../Core/Src/app.cpp:8:
+../Core/Inc/modbus.h:20:36: note:   initializing argument 1 of 'bool modbus::connect(unsigned char*, int)'
+   20 |         bool connect(unsigned char ip[4], int port);
+      |                      ~~~~~~~~~~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:91: Core/Src/app.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:26:32 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:26:33 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 204920	    808	   9112	 214840	  34738	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+17:26:48 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:26:48 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/modbus.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/modbus.d" -MT"Core/Src/modbus.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/modbus.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 204920	    808	   9112	 214840	  34738	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+17:27:25 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:27:26 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ "../Core/Src/main.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 204920	    808	   9112	 214840	  34738	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+17:40:52 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:40:53 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 204928	    808	   9112	 214848	  34740	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+17:44:12 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+17:44:13 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/mosbus2serial.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/mosbus2serial.d" -MT"Core/Src/mosbus2serial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/mosbus2serial.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 204928	    808	   9112	 214848	  34740	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+18:05:58 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+18:05:59 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
+arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Ethernet-app.elf
+ 
+arm-none-eabi-size   Ethernet-app.elf 
+arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
+arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
+   text	   data	    bss	    dec	    hex	filename
+ 204944	    808	   9112	 214864	  34750	Ethernet-app.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ethernet-app.bin
+ 
+Finished building: Ethernet-app.list
+ 
+18:09:10 **** Incremental Build of configuration Release for project Bootloader ****
+make -j8 all 
+arm-none-eabi-size   Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7108	     20	   1688	   8816	   2270	Bootloader.elf
+Finished building: default.size.stdout
+ 
+18:09:11 **** Incremental Build of configuration Release for project Ethernet-app ****
+make -j8 all 
+arm-none-eabi-size   Ethernet-app.elf 
+   text	   data	    bss	    dec	    hex	filename
+ 204944	    808	   9112	 214864	  34750	Ethernet-app.elf
+Finished building: default.size.stdout
+ 

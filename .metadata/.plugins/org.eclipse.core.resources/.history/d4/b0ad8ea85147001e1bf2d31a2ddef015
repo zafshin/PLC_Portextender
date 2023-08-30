@@ -1,0 +1,133 @@
+/*
+ * modbus.cpp
+ *
+ *  Created on: 25 May 2023
+ *      Author: Afshin
+ */
+
+#include "modbus.h"
+#include <sstream>
+#include <cstring>
+modbus::modbus(unsigned char sNum, tcpsocket *rinstance) :
+		refInstance(rinstance), socknum(sNum) {
+	// TODO Auto-generated constructor stub
+
+}
+
+modbus::~modbus() {
+	// TODO Auto-generated destructor stub
+}
+
+bool modbus::host(int port) {
+	ppp = port;
+	refInstance->disconnectS(socknum);
+	refInstance->closeS(socknum);
+	refInstance->configSocket(socknum, Sn_MR_TCP, port);
+	return refInstance->listenS(socknum);
+	client = false;
+}
+bool ffff = true;
+bool modbus::connect(unsigned char ip[4], int port) {
+	client = true;
+		ipp = ip;
+		memcpy(ipp, ip, sizeof(ipp));
+		ppp = port;
+		refInstance->disconnectS(socknum);
+		refInstance->closeS(socknum);
+		refInstance->configSocket(socknum, Sn_MR_TCP, ppp);
+
+	bool r = refInstance->connectTo(socknum, ip, ppp);
+	refInstance->setKeepAlive(socknum, (unsigned char) 0x1);
+	return r;
+
+}
+bool modbus::disconnectM() {
+	return refInstance->disconnectS(socknum);
+}
+bool modbus::updateNow() {
+	if (enable) {
+		std::vector<unsigned char> data;
+		if (client) {
+			if (refInstance->connected(socknum) == false)
+				this->connect(ipp, ppp);
+			if (refInstance->Ready(socknum)) {
+				refInstance->readS(socknum, data);
+				buff = data;
+				if (data.size() > 6) {
+					id = ((data[0] << 8 | data[1]));
+					pid = ((data[2] << 8 | data[3]));
+					daddr = data[6];
+				}
+				return true;
+			}
+		} else {
+			if (!connected) {
+				if (!refInstance->listenWait(socknum))
+					return false;
+				connected = true;
+				refInstance->setKeepAlive(socknum, 1);
+			}
+			if (!refInstance->connected(socknum)) {
+				connected = false;
+				host(ppp);
+			}
+			if (refInstance->Ready(socknum)) {
+				refInstance->readS(socknum, data);
+				buff = data;
+				if (data.size() > 6) {
+					id = ((data[0] << 8 | data[1]));
+					pid = ((data[2] << 8 | data[3]));
+					daddr = data[6];
+				}
+				return true;
+			}
+		}
+	}
+	return false;
+}
+std::vector<unsigned char> modbus::getReq() {
+	std::vector<unsigned char> data;
+	for (size_t i = 0; i < buff.size(); i++) {
+		if (i >= 7)
+			data.push_back(buff[i]);
+	}
+	buff.clear();
+	return data;
+}
+std::vector<unsigned char> modbus::getRes() {
+	std::vector<unsigned char> data;
+	for (size_t i = 0; i < buff.size(); i++) {
+		if (i >= 7)
+			data.push_back(buff[i]);
+	}
+	buff.clear();
+	return data;
+}
+bool modbus::sentRes(std::vector<unsigned char> &data) {
+	std::vector<unsigned char> out;
+	out.push_back(id >> 8);
+	out.push_back(id);
+	out.push_back(pid >> 8);
+	out.push_back(pid);
+	out.push_back((data.size() + 1) >> 8);
+	out.push_back((data.size() + 1));
+	out.push_back(daddr);
+	for (size_t i = 0; i < data.size(); i++) {
+		out.push_back(data[i]);
+	}
+	return refInstance->writeS(socknum, out);
+}
+bool modbus::sentReq(std::vector<unsigned char> &data) {
+	std::vector<unsigned char> out;
+	out.push_back(id >> 8);
+	out.push_back(id);
+	out.push_back(pid >> 8);
+	out.push_back(pid);
+	out.push_back((data.size() + 1) >> 8);
+	out.push_back((data.size() + 1));
+	out.push_back(daddr);
+	for (size_t i = 0; i < data.size(); i++) {
+		out.push_back(data[i]);
+	}
+	return refInstance->writeS(socknum, out);
+}

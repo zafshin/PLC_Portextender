@@ -1,4 +1,4 @@
-00:14:01 **** Incremental Build of configuration Release for project Bootloader ****
+18:09:10 **** Incremental Build of configuration Release for project Bootloader ****
 make -j8 all 
 arm-none-eabi-size   Bootloader.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size   Bootloader.elf
 Finished building: default.size.stdout
  
 
-00:14:02 Build Finished. 0 errors, 0 warnings. (took 906ms)
+18:09:11 Build Finished. 0 errors, 0 warnings. (took 530ms)
 

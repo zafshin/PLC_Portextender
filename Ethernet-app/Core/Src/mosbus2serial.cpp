@@ -6,7 +6,7 @@
  */
 
 #include "mosbus2serial.h"
-
+#include <cstring>
 mosbus2serial::mosbus2serial(tcpsocket *rinstance, UART_HandleTypeDef *serial,
 		uint8_t socknum) :
 		snum(socknum), tcpin(rinstance), sinst(serial) {
@@ -35,9 +35,21 @@ void mosbus2serial::stop() {
 }
 void mosbus2serial::config(uint16_t port) {
 	port_i = port;
+	host = true;
 	tcpin->configSocket(snum, Sn_MR_TCP, port_i);
 	tcpin->listenS(snum);
 
+}
+bool mosbus2serial::connect(unsigned char ips[4], uint16_t port) {
+	host = false;
+	memcpy(ip_i, ips, sizeof(ip_i));
+	port_i = port;
+	tcpin->disconnectS(snum);
+	tcpin->closeS(snum);
+	tcpin->configSocket(snum, Sn_MR_TCP, port_i);
+	bool r = tcpin->connectTo(snum, ips, port_i);
+	tcpin->setKeepAlive(snum, (unsigned char) 0x1);
+	return r;
 }
 bool mosbus2serial::refresh() {
 	unsigned char n = 0;
@@ -49,7 +61,7 @@ bool mosbus2serial::refresh() {
 	uint32_t measured_time = end_time - start_time;
 	if (measured_time > 10) {
 		if (sbuf.size() > 0) {
-			if(tcpin->listenWait(snum) == 2)
+			if (tcpin->listenWait(snum) == 2)
 				tcpin->writeS(snum, sbuf);
 			sbuf.clear();
 			HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_RESET); //LED LOW
@@ -62,9 +74,17 @@ bool mosbus2serial::refresh() {
 				if (status != 2) {
 					timeo++;
 					if (timeo > 1000) {
-						timeo = 0;
-						rsocket();
-						return false;
+						if (!host) {
+							if (timeo > 100000) {
+								timeo = 0;
+								rsocket();
+								return false;
+							}
+						} else {
+							timeo = 0;
+							rsocket();
+							return false;
+						}
 					}
 				}
 				return true;
@@ -76,10 +96,14 @@ bool mosbus2serial::refresh() {
 	return false;
 }
 void mosbus2serial::rsocket() {
-	tcpin->disconnectS(snum);
-	tcpin->closeS(snum);
-	tcpin->configSocket(snum, Sn_MR_TCP, port_i);
-	tcpin->listenS(snum);
+	if (host) {
+		tcpin->disconnectS(snum);
+		tcpin->closeS(snum);
+		tcpin->configSocket(snum, Sn_MR_TCP, port_i);
+		tcpin->listenS(snum);
+	} else {
+		connect(ip_i, port_i);
+	}
 }
 bool mosbus2serial::chsocket() {
 	HAL_GPIO_WritePin(R_LED_GPIO_Port, R_LED_Pin, GPIO_PIN_SET); //LED HIGH

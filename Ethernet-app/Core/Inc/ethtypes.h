@@ -11,3 +11,4 @@ struct http_t{
 	std::string p = "";
 	std::string c = "";
 };
+

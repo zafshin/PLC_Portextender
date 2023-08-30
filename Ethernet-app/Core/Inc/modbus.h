@@ -17,7 +17,7 @@ public:
 
 	modbus(unsigned char sNum,tcpsocket *rinstance);
 	bool host(int port);
-	bool connect(std::string ip, int port);
+	bool connect(unsigned char ip[4], int port);
 	bool disconnectM();
 	bool updateNow();
 	std::vector<unsigned char> getRes();
@@ -30,7 +30,7 @@ private:
 	bool client = false;
 	bool connected = false;
 	uint16_t ppp;
-	std::string ipp;
+	unsigned char ipp[4];
 	uint16_t id = 0;
 	uint16_t pid =0;
 	uint8_t daddr = 1;

@@ -1,20 +1,10 @@
-00:14:03 **** Incremental Build of configuration Release for project Ethernet-app ****
+18:09:11 **** Incremental Build of configuration Release for project Ethernet-app ****
 make -j8 all 
-arm-none-eabi-g++ "../Core/Src/app.cpp" -mcpu=cortex-m3 -std=gnu++17 -DUSE_HAL_DRIVER -DSTM32F103xE -DSTM32_THREAD_SAFE_STRATEGY=2 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/ThreadSafe -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app.d" -MT"Core/Src/app.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/app.o"
-arm-none-eabi-g++ -o "Ethernet-app.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Afshin\Documents\Ethernet-app\PLC_Portextender\Ethernet-app\STM32F103RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ethernet-app.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: Ethernet-app.elf
- 
 arm-none-eabi-size   Ethernet-app.elf 
-arm-none-eabi-objdump -h -S  Ethernet-app.elf  > "Ethernet-app.list"
-arm-none-eabi-objcopy  -O binary  Ethernet-app.elf  "Ethernet-app.bin"
    text	   data	    bss	    dec	    hex	filename
- 205216	    808	   9112	 215136	  34860	Ethernet-app.elf
+ 204944	    808	   9112	 214864	  34750	Ethernet-app.elf
 Finished building: default.size.stdout
  
-Finished building: Ethernet-app.bin
- 
-Finished building: Ethernet-app.list
- 
 
-00:14:08 Build Finished. 0 errors, 0 warnings. (took 5s.807ms)
+18:09:12 Build Finished. 0 errors, 0 warnings. (took 589ms)
 

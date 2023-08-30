@@ -1,0 +1,43 @@
+/*
+ * mosbus2serial.h
+ *
+ *  Created on: Aug 9, 2023
+ *      Author: Afshin
+ */
+
+#ifndef SRC_MOSBUS2SERIAL_H_
+#define SRC_MOSBUS2SERIAL_H_
+#include "main.h"
+#include "tcpsocket.h"
+#include "ethtypes.h"
+#include "usart.h"
+#include <string>
+#include <vector>
+class mosbus2serial {
+public:
+	mosbus2serial(tcpsocket *rinstance, UART_HandleTypeDef *serial, uint8_t socknum);
+	virtual ~mosbus2serial();
+	void irq();
+	void start();
+	void stop();
+	void config(uint16_t port);
+	bool connect(unsigned char ips[4], uint16_t port);
+	bool refresh();
+private:
+	bool host = false;
+	unsigned char ip_i[4];
+	uint8_t snum;
+	uint32_t start_time = 0;
+	tcpsocket * tcpin;
+	uint16_t port_i;
+	UART_HandleTypeDef * sinst;
+	std::vector<unsigned char> sbuf;
+	unsigned char bbs =0;
+	bool status = false;
+	int timeo = 0;
+	void rsocket();
+	bool chsocket();
+
+};
+
+#endif /* SRC_MOSBUS2SERIAL_H_ */

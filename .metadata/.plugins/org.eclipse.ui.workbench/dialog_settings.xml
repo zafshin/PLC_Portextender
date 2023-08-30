@@ -7,4 +7,10 @@
 			<item value="org.eclipse.cdt.ui.importWizardCategory"/>
 		</list>
 	</section>
+	<section name="ZipFileExportWizard">
+	</section>
+	<section name="FileSystemExportWizard">
+	</section>
+	<section name="PreferencesExportWizard">
+	</section>
 </section>

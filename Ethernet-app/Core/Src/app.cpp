@@ -10,6 +10,22 @@
 #include <sstream>
 SPI_HandleTypeDef *spiaa;
 //w5500
+struct ip_t{
+	unsigned char ip[4]={0};
+};
+ip_t str2ip(std::string ip){
+	ip_t result;
+	std::string to;
+	std::stringstream ss(ip);
+	int i = 0;
+	while (std::getline(ss, to, '.')) {
+		result.ip[i] = std::stoul(to, nullptr, 0);
+		i++;
+		if (i > 3)
+		break;
+	}
+	return result;
+}
 void cs_sel(void) {
 	HAL_GPIO_WritePin(eth_cs_GPIO_Port, eth_cs_Pin, GPIO_PIN_RESET); //CS LOW
 }
@@ -296,8 +312,8 @@ httpRes callback(std::string &input, uservice *userver, eflash_t *eflash) {
 								"          <select name=\"modbusMod\" id=\"modbusMod\">\n"
 								"			 <option selected hidden>" + mbmod
 						+ "</option>\n"
-								"            <option value=\"h\">Client</option>\n"
-								"            <option value=\"c\">Host</option>\n"
+								"            <option value=\"Client\">Client</option>\n"
+								"            <option value=\"Host\">Host</option>\n"
 								"          </select>\n"
 								"        </div>\n"
 								"        <div class=\"container\">\n"
@@ -314,7 +330,7 @@ httpRes callback(std::string &input, uservice *userver, eflash_t *eflash) {
 								"        </div>\n"
 								"      </div>\n"
 								"      <div class=\"containerch\">\n"
-								"        <p class=\"inlinec\">Modbus to RS485 settings</p>\n"
+								"        <p class=\"inlinec\">Ethernet to RS485 settings</p>\n"
 								"        <div class=\"container\">\n"
 								"          <p class=\"inlinec\">Baudrate:</p>\n"
 								"          <input\n"
@@ -357,8 +373,8 @@ httpRes callback(std::string &input, uservice *userver, eflash_t *eflash) {
 								"          <select name=\"modbus2sMod\" id=\"modbus2sMod\">\n"
 								"			 <option selected hidden>" + m2smod
 						+ "</option>\n"
-								"            <option value=\"h\">Client</option>\n"
-								"            <option value=\"c\">Host</option>\n"
+								"            <option value=\"Client\">Client</option>\n"
+								"            <option value=\"Host\">Host</option>\n"
 								"          </select>\n"
 								"        </div>\n"
 								"        <div class=\"container\">\n"
@@ -599,9 +615,8 @@ app::app(SPI_HandleTypeDef &hspi1, SPI_HandleTypeDef &hspi2,
 		mb1->enable = true;
 		if (s2.host)
 			mb1->host(s2.port);
-		else
-			mb1->connect((const char*) &s2.ip, s2.port);
-
+//		else
+//			mb1->connect((const char*) &s2.ip, s2.port);
 	}
 
 	m2s = new mosbus2serial(&network, uarta, 2);
@@ -614,7 +629,12 @@ app::app(SPI_HandleTypeDef &hspi1, SPI_HandleTypeDef &hspi2,
 			if (HAL_UART_Init(uarta) != HAL_OK)
 				Error_Handler();
 		  }
-		m2s->config(s3.port);
+		if(s3.host==1)
+			m2s->config(s3.port);
+		else{
+			ip_t ii = str2ip(s3.ip);
+			m2s->connect(ii.ip, s3.port);
+		}
 		m2s->start();
 	}
 	HAL_GPIO_WritePin(G_LED_GPIO_Port, G_LED_Pin, GPIO_PIN_SET); //LED HIGH
@@ -646,8 +666,8 @@ void app::readMB() {
 		i++;
 		if (mb1->updateNow())
 			break;
-		if (i > 1998)
-			mb1->connect("192.168.1.5", 502);
+//		if (i > 1998)
+//			mb1->connect("192.168.1.5", 502);
 	}
 	std::vector<unsigned char> res = mb1->getRes();
 	std::string a = vectorToHexString(res);
@@ -661,8 +681,8 @@ void app::writeMB() {
 		i++;
 		if (mb1->updateNow())
 			break;
-		if (i > 1998)
-			mb1->connect("192.168.1.5", 502);
+//		if (i > 1998)
+//			mb1->connect("192.168.1.5", 502);
 	}
 	std::vector<unsigned char> res = mb1->getRes();
 	std::string a = vectorToHexString(res);

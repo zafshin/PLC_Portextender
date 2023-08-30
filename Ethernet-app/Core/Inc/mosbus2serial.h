@@ -19,8 +19,11 @@ public:
 	void start();
 	void stop();
 	void config(uint16_t port);
+	bool connect(unsigned char ips[4], uint16_t port);
 	bool refresh();
 private:
+	bool host = false;
+	unsigned char ip_i[4];
 	uint8_t snum;
 	uint32_t start_time = 0;
 	tcpsocket * tcpin;

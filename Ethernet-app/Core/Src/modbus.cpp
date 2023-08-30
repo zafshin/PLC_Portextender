@@ -6,7 +6,7 @@
  */
 
 #include "modbus.h"
-#include <sstream>
+#include <cstring>
 modbus::modbus(unsigned char sNum, tcpsocket *rinstance) :
 		refInstance(rinstance), socknum(sNum) {
 	// TODO Auto-generated constructor stub
@@ -26,28 +26,14 @@ bool modbus::host(int port) {
 	client = false;
 }
 bool ffff = true;
-bool modbus::connect(std::string ip, int port) {
-	unsigned char ips[4];
+bool modbus::connect(unsigned char ip[4], int port) {
 	client = true;
-	if (ip != "") {
-		ipp = ip;
-		ppp = port;
-		refInstance->disconnectS(socknum);
-		refInstance->closeS(socknum);
-		refInstance->configSocket(socknum, Sn_MR_TCP, ppp);
-
-		std::string to;
-		std::stringstream ss(ipp);
-		int i = 0;
-		while (std::getline(ss, to, '.')) {
-			ips[i] = std::stoul(to, nullptr, 0);
-			i++;
-			if (i > 3)
-				break;
-		}
-	}
-
-	bool r = refInstance->connectTo(socknum, ips, ppp);
+	memcpy(ipp, ip, sizeof(ipp));
+	ppp = port;
+	refInstance->disconnectS(socknum);
+	refInstance->closeS(socknum);
+	refInstance->configSocket(socknum, Sn_MR_TCP, ppp);
+	bool r = refInstance->connectTo(socknum, ip, ppp);
 	refInstance->setKeepAlive(socknum, (unsigned char) 0x1);
 	return r;
 
